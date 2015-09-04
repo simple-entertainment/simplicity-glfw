@@ -14,11 +14,7 @@
  * You should have received a copy of the GNU General Public License along with The Simplicity Engine. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include <GL/glew.h>
-
 #include <simplicity/logging/Logs.h>
-#include <simplicity/messaging/Messages.h>
-#include <simplicity/messaging/Subject.h>
 #include <simplicity/Simplicity.h>
 
 #include "../input/GLFWInputEvents.h"
@@ -161,13 +157,6 @@ namespace simplicity
 			glfwSetKeyCallback(window, fireKeyboardButtonEvent);
 			glfwSetMouseButtonCallback(window, fireMouseButtonEvent);
 			glfwSetWindowCloseCallback(window, onWindowClose); // TODO this should really fire an event?
-
-			glewExperimental = GL_TRUE;
-			glewInit();
-
-			// Sometimes glewInit() gives false negatives. Lets clear the OpenGL error so it doesn't confuse us
-			// elsewhere.
-			glGetError();
 		}
 	}
 }
