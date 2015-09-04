@@ -36,13 +36,15 @@ namespace simplicity
 				/**
 				 * @param title The window title.
 				 */
-				GLFWEngine(const std::string& title);
+				GLFWEngine();
 
 				void advance() override;
 
 				void captureMouse() override;
 
 				int getHeight() const override;
+
+				std::string getTitle() const override;
 
 				int getWidth() const override;
 
@@ -60,7 +62,11 @@ namespace simplicity
 
 				void setHeight(int height) override;
 
+				void setTitle(const std::string& title) override;
+
 				void setWidth(int width) override;
+
+				void show() override;
 
 			private:
 				bool fullscreen;

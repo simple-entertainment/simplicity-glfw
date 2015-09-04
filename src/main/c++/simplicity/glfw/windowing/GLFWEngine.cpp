@@ -40,38 +40,14 @@ namespace simplicity
 			Simplicity::stop();
 		}
 
-		GLFWEngine::GLFWEngine(const string& title) :
+		GLFWEngine::GLFWEngine() :
 			fullscreen(false),
 			height(600),
 			mouseCaptured(false),
-			title(title),
+			title("GLFW"),
 			width(800),
 			window(nullptr)
 		{
-			glfwSetErrorCallback(onError);
-
-			if (!glfwInit())
-			{
-				return;
-			}
-
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
-			window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-			glfwMakeContextCurrent(window);
-
-			glfwSetCursorPosCallback(window, fireMouseMoveEvent);
-			glfwSetKeyCallback(window, fireKeyboardButtonEvent);
-			glfwSetMouseButtonCallback(window, fireMouseButtonEvent);
-			glfwSetWindowCloseCallback(window, onWindowClose); // TODO this should really fire an event?
-
-			glewExperimental = GL_TRUE;
-			glewInit();
-
-			// Sometimes glewInit() gives false negatives. Lets clear the OpenGL error so it doesn't confuse us
-			// elsewhere.
-			glGetError();
 		}
 
 		void GLFWEngine::advance()
@@ -103,6 +79,11 @@ namespace simplicity
 		int GLFWEngine::getHeight() const
 		{
 			return height;
+		}
+
+		string GLFWEngine::getTitle() const
+		{
+			return title;
 		}
 
 		int GLFWEngine::getWidth() const
@@ -151,9 +132,42 @@ namespace simplicity
 			this->height = height;
 		}
 
+		void GLFWEngine::setTitle(const string& title)
+		{
+			this->title = title;
+		}
+
 		void GLFWEngine::setWidth(int width)
 		{
 			this->width = width;
+		}
+
+		void GLFWEngine::show()
+		{
+			glfwSetErrorCallback(onError);
+
+			if (!glfwInit())
+			{
+				return;
+			}
+
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+			window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+			glfwMakeContextCurrent(window);
+
+			glfwSetCursorPosCallback(window, fireMouseMoveEvent);
+			glfwSetKeyCallback(window, fireKeyboardButtonEvent);
+			glfwSetMouseButtonCallback(window, fireMouseButtonEvent);
+			glfwSetWindowCloseCallback(window, onWindowClose); // TODO this should really fire an event?
+
+			glewExperimental = GL_TRUE;
+			glewInit();
+
+			// Sometimes glewInit() gives false negatives. Lets clear the OpenGL error so it doesn't confuse us
+			// elsewhere.
+			glGetError();
 		}
 	}
 }
