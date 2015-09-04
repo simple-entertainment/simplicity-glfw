@@ -120,26 +120,12 @@ namespace simplicity
 			return mouseCaptured;
 		}
 
-		bool GLFWEngine::onMouseMove(const Message& message)
-		{
-			const MouseMoveEvent* event = static_cast<const MouseMoveEvent*>(message.body);
-			xMouse = event->x;
-			yMouse = event->y;
-
-			return false;
-		}
-
 		void GLFWEngine::onPlay()
 		{
-			Messages::registerRecipient(Subject::MOUSE_MOVE, bind(&GLFWEngine::onMouseMove, this,
-				placeholders::_1));
 		}
 
 		void GLFWEngine::onStop()
 		{
-			Messages::deregisterRecipient(Subject::MOUSE_MOVE, bind(&GLFWEngine::onMouseMove, this,
-				placeholders::_1));
-
 			glfwDestroyWindow(window);
 			glfwTerminate();
 		}

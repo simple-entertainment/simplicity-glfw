@@ -74,12 +74,6 @@ namespace simplicity
 				std::string title;
 
 				int width;
-
-				int xMouse;
-
-				int yMouse;
-
-				bool onMouseMove(const Message& message);
 		};
 	}
 }
