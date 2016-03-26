@@ -46,7 +46,7 @@ namespace simplicity
 		{
 		}
 
-		void GLFWEngine::advance()
+		void GLFWEngine::advance(Scene& scene)
 		{
 			glfwPollEvents();
 

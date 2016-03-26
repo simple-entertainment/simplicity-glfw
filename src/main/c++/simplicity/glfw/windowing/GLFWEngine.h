@@ -38,7 +38,7 @@ namespace simplicity
 				 */
 				GLFWEngine();
 
-				void advance() override;
+				void advance(Scene& scene) override;
 
 				void captureMouse() override;
 
